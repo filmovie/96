@@ -15,10 +15,7 @@
             overflow-y: auto;
         }
         .sidebar {
-            width: 300px;
-            background-color: #202020;
-            padding: 20px;
-            overflow-y: auto;
+            background-color: #202020;  
         }
         .sidebar h2 {
             color: #ff0000;
@@ -55,7 +52,7 @@
             margin-bottom: 20px;
         }
         .search-bar input {
-            width: 100%;
+            width: 94%;
             padding: 10px;
             border-radius: 5px;
             border: 1px solid #333;
@@ -87,63 +84,56 @@
         <!-- Content area -->
     </div>
     <script>
-// Array of M3U URLs
-const m3uUrls = [ 'p.m3u8', ];
+        // Jalur ke file m3u
+        const m3uUrl = 'https://filmovie.github.io/new/p.m3u8'; // Replace with your M3U URL
 
-// Function to fetch and process M3U files
-function fetchM3UData(url) {
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.split('\n');
-            const channelList = document.getElementById('channel-list');
-            
-            lines.forEach((line, index) => {
-                if (line.startsWith('#EXTINF:')) {
-                    const channelInfo = line.split(',');
-                    const title = channelInfo[1].trim();
-                    const logo = channelInfo[0].match(/tvg-logo="([^"]+)"/)[1];
-                    const streamUrl = lines[index + 1]?.trim(); // Safely access the stream URL
+        // Ambil file m3u dan analisis data
+        fetch(m3uUrl)
+            .then(response => response.text())
+            .then(data => {
+                const lines = data.split('\n');
+                const channelList = document.getElementById('channel-list');
 
-                    if (streamUrl) {
-                        const listItem = document.createElement('li');
-                        listItem.innerHTML = `
-                            <img src="${logo}" alt="${title} Logo">
-                            <a href="#" data-url="${streamUrl}">${title}</a>
-                        `;
-                        channelList.appendChild(listItem);
-                        
-                        listItem.querySelector('a').onclick = (event) => {
-                            event.preventDefault();
-                            const player = document.getElementById('player');
-                            player.src = streamUrl;
-                            player.play();
-                        };
+                let currentChannel = null;
+                lines.forEach(line => {
+                    if (line.startsWith('#EXTINF:')) {
+                        const channelInfo = line.split(',');
+                        const title = channelInfo[1].trim();
+                        const logo = channelInfo[0].match(/tvg-logo="([^"]+)"/)[1];
+                        const urlIndex = lines.indexOf(line) + 1;
+                        const streamUrl = lines[urlIndex].trim();
+
+                        if (streamUrl) {
+                            const listItem = document.createElement('li');
+                            listItem.innerHTML = `
+                                <img src="${logo}" alt="${title} Logo">
+                                <a href="#" data-url="${streamUrl}">${title}</a>
+                            `;
+                            channelList.appendChild(listItem);
+                            
+                            listItem.querySelector('a').onclick = (event) => {
+                                event.preventDefault();
+                                const player = document.getElementById('player');
+                                player.src = streamUrl;
+                                player.play();
+                            };
+                        }
                     }
-                }
-            });
-        })
-        .catch(error => console.error('Error fetching the M3U file:', error));
-}
+                });
 
-// Fetch data for each URL in the array
-m3uUrls.forEach(url => fetchM3UData(url));
+                // Search filter
+                const searchInput = document.getElementById('search');
+                searchInput.addEventListener('input', () => {
+                    const filter = searchInput.value.toLowerCase();
+                    const items = channelList.getElementsByTagName('li');
 
-// Search filter functionality
-const searchInput = document.getElementById('search');
-searchInput.addEventListener('input', () => {
-    const filter = searchInput.value.toLowerCase();
-    const listItems = document.querySelectorAll('#channel-list li');
-
-    listItems.forEach(item => {
-        const title = item.querySelector('a').textContent.toLowerCase();
-        if (title.includes(filter)) {
-            item.style.display = '';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-});
-</script>
+                    for (let i = 0; i < items.length; i++) {
+                        const title = items[i].textContent || items[i].innerText;
+                        items[i].style.display = title.toLowerCase().includes(filter) ? '' : 'none';
+                    }
+                });
+            })
+            .catch(err => console.error('Error fetching the M3U file:', err));
+    </script>
 </body>
 </html>
