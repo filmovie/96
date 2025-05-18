@@ -5,9 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Player</title>
     <style>
-        video {
-            width: 100%;
-            height: auto;
+        .video-container {
+            position: relative;
+            width: 100%; /* Lebar penuh */
+            padding-bottom: 56.25%; /* Untuk rasio 16:9 */
+            height: 0; /* Tinggi 0 untuk menjaga rasio */
+        }
+        
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%; /* Lebar penuh */
+            height: 100%; /* Tinggi penuh */
+            object-fit: cover; /* Memastikan video mengisi ruang */
         }
         #channel-list {
             margin-top: 1px;
@@ -68,10 +79,12 @@
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <video id="player" controls>
+<div class="video-container">
+    <video id="player" controls>
             <!-- Video akan diputar di sini -->
         </video>
+</div>
+    <div class="sidebar">
         <h2>Saluran</h2>
         <div class="search-bar">
             <input type="text" id="search" placeholder="Cari saluran...">
