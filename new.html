@@ -8,6 +8,37 @@
 body {
             background-color: #202020;
         }
+.tiviku {
+				position: relative;
+				bottom: 884px;
+				left: 3px;
+				border-radius: 8px ;
+				width: 30px;
+				height: 10px;
+}
+#clock {
+				text-align: center;
+				position: relative;
+				bottom: 616px;
+				color: whitesmoke;
+}
+.time {
+				margin: 0;
+				padding: 0;
+}
+.date {
+				margin: 0;
+				padding: 0;
+}
+#clock .time {
+				letter-spacing: 0.01em;
+				font-size: 11px;
+				padding: 2px 0;
+}
+#clock .date {
+				letter-spacing: 0.1em;
+				font-size: 11px;
+}
         .video-container {
             width: 100%;
 				height: 210px;
@@ -88,11 +119,12 @@ body {
 <body>
     <div class="sidebar">
         <div class="video-container">
-    <video id="player" controls>
+    <video id="player" controls poster="https://filmovie.github.io/tiviku/gambar/tiviku.png">
             <!-- Video akan diputar di sini -->
         </video>
 </div>
         <h2>Saluran</h2>
+        <div class="vdi1" id="vdi1">
         <div class="search-bar">
             <input type="text" id="search" placeholder="Cari saluran...">
         </div>
@@ -161,6 +193,15 @@ searchInput.addEventListener('input', () => {
         }
     });
 });
+let time = document.createElement('div');
+time.id ="clock";
+time.innerHTML = "<p class='date'>{{ date }}</p><p class='time'>{{ time }}</p>";
+vdi1.appendChild(time);
+let tiviku = document.createElement('img');
+tiviku.src="https://filmovie.github.io/tiviku/gambar/tiviku.png";
+tiviku.className="tiviku";
+vdi1.appendChild(tiviku);
 </script>
+<script src="https://filmovie.github.io/tiviku/vodi/time.js"></script>
 </body>
 </html>
