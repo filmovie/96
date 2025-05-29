@@ -4,36 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPTV Player</title>
+<script src="ts.js"></script>
     <style>
 body {
             background-color: black;
         }
 .tiviku {
 				position: relative;
-				bottom: 10px;
+				bottom: 5px;
 				left: 0px;
 				border-radius: 8px ;
 				width: 30px;
 				height: 10px;
 }      
-        .video-container {
-            width: 100%;
-				height: 210px;
-				position: absolute;
-				left: 50%;
-				top: 0px;
-				transform: translate(-50%,-50%);
-        }
-        .video-container video {
+        
+        #player-1 {
             position: absolute;
-				top: 105px;
-				width: 100%;
-				height: 210px;
-				object-fit: fill;
+				top: 10px;
         }
         #channel-list {
             margin-top: 1px;
-            max-height: 400px;
+            max-height: 500px;
             overflow-y: auto;
 position: relative;
 				top: 250px;
@@ -95,13 +86,13 @@ height: 5px;
 </head>
 <body>
     <div class="sidebar">
-     <div class="video-container">
-    <video id="player" controls poster="https://filmovie.github.io/tiviku/gambar/tiviku.png">
-            <!-- Video akan diputar di sini -->
-        </video>
-</div>
-<div class="vdi1" id="vdi1">
+<div class="video-container">
+    <div id="player-1" class="jw-video-player">
 <img class="tiviku" src="https://filmovie.github.io/tiviku/gambar/tiviku.png" alt="">
+</div>
+</div>
+
+<div class="vdi1" id="vdi1">
 </div>
         <div class="search-bar">
             <input type="text" id="search" placeholder="Cari saluran...">
@@ -141,10 +132,15 @@ function fetchM3UData(url) {
                         channelList.appendChild(listItem);
                         
                         listItem.querySelector('a').onclick = (event) => {
-                            event.preventDefault();
-                            const player = document.getElementById('player');
-                            player.src = streamUrl;
-                            player.play();
+                            
+                            const playerInstance = jwplayer("player-1").setup({
+            file: streamUrl, // Ganti dengan URL video Anda
+            
+            autostart: true // Tidak otomatis play
+        });
+                           document.getElementById("player-1").addEventListener("click", function() {
+            playerInstance.play(true); // Play video saat di klik
+        });
                         };
                     }
                 }
@@ -171,6 +167,10 @@ searchInput.addEventListener('input', () => {
         }
     });
 });
+// Inisialisasi JW Play
+
+        // Event untuk klik pada player
+        
 </script>
 </body>
 </html>
