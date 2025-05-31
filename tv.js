@@ -29,6 +29,8 @@ function fetchM3UData(url) {
                             event.preventDefault();
                             const player = document.getElementById('player');
                             player.src = streamUrl;
+                            const imgee = document.getElementById('imgee');
+                            imgee.src = logo;
                             player.play();
                         };
                     }

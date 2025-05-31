@@ -22,6 +22,15 @@ body {
 				position: relative;
 				left: 3px;
 }
+#imgee {
+				width: 70px;
+				height: 90px;
+				position: relative;
+				left: 250px;
+				top: 40px;
+				border-radius: 5px;
+				border: 1px solid red;
+}
 .search-bar {
 				position: relative;
 				padding: 10px;
@@ -33,12 +42,12 @@ body {
 }
 #channel-list {
 				overflow: scroll;
-				height: 370px;
+				height: 400px;
 				padding: 5px;
 }
 #ilt {
-				width: 50px;
-				height: 60px;
+				width: 40px;
+				height: 50px;
 				border-radius: 5px;
 				margin-right: 10px;
 }
