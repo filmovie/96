@@ -1,5 +1,6 @@
 body {
 				background-color: black;
+				padding: 0px;
 }
 .video-container {
 				width: 100%;
@@ -23,8 +24,8 @@ body {
 				left: 3px;
 }
 #imgee {
-				width: 100px;
-				height: 120px;
+				width: 80px;
+				height: 90px;
 				position: relative;
 				left: 228px;
 				top: 40px;
@@ -58,15 +59,16 @@ body {
 				border-radius: 5px;
 				border: 1px solid #313;
 				background-color: blanchedalmond;
+				height: 20px;
 }
 #channel-list {
 				overflow: scroll;
-				height: 250px;
+				height: 300px;
 				padding: 5px;
 }
 #ilt {
-				width: 40px;
-				height: 50px;
+				width: 30px;
+				height: 40px;
 				border-radius: 5px;
 				margin-right: 10px;
 }
