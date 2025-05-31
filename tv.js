@@ -31,6 +31,8 @@ function fetchM3UData(url) {
                             player.src = streamUrl;
                             const imgee = document.getElementById('imgee');
                             imgee.src = logo;
+                            const txtt = document.getElementById('txtt');
+                            txtt.innerText = title;
                             player.play();
                         };
                     }

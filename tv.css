@@ -23,17 +23,36 @@ body {
 				left: 3px;
 }
 #imgee {
-				width: 70px;
-				height: 90px;
+				width: 100px;
+				height: 120px;
 				position: relative;
-				left: 250px;
+				left: 228px;
 				top: 40px;
 				border-radius: 5px;
 				border: 1px solid red;
 }
+#txtt {
+				color: whitesmoke;
+				text-align: center;
+				font-size: 16px;
+				color: red;
+}
+#tt {
+				width: 200px;
+				height: 100px;
+				position: relative;
+				left: 10px;
+				bottom: 70px;
+				padding: 0px;
+}
+#cntn {
+				position: relative;
+				bottom: 100px;
+}
 .search-bar {
 				position: relative;
 				padding: 10px;
+				left: 5px;
 }
 .search-bar input {
 				border-radius: 5px;
@@ -42,7 +61,7 @@ body {
 }
 #channel-list {
 				overflow: scroll;
-				height: 400px;
+				height: 250px;
 				padding: 5px;
 }
 #ilt {
@@ -64,4 +83,5 @@ body {
 				padding: 5px;
 				text-decoration: none;
 				display: block;
+				font-size: 16px;
 }
