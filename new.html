@@ -1,176 +1,27 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="in">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPTV Player</title>
-<script src="ts.js"></script>
-    <style>
-body {
-            background-color: black;
-        }
-.tiviku {
-				position: relative;
-				bottom: 5px;
-				left: 0px;
-				border-radius: 8px ;
-				width: 30px;
-				height: 10px;
-}      
-        
-        #player-1 {
-            position: absolute;
-				top: 10px;
-        }
-        #channel-list {
-            margin-top: 1px;
-            max-height: 500px;
-            overflow-y: auto;
-position: relative;
-				top: 250px;
-        }
-        .ysidebar {
-            width: 300px;
-            background-color: #202020;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-        .sidebar ul li {
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .sidebar ul li img {
-            width: 50px; /* Adjust logo size */
-            height: auto;
-            margin-right: 10px;
-border-radius: 3px;
-        }
-        .sidebar ul li a {
-            color: #fff;
-            text-decoration: none;
-            display: block;
-            padding: 10px;
-            border-radius: 5px;
-            background-color: #333;
-            flex: 1; /* Make the anchor fill the remaining space */
-        }
-        .sidebar ul li a:hover {
-            background-color: #444;
-        }
-        .search-bar {
-            margin-bottom: 10px;
-position: relative;
-				top: 250px;
-        }
-        .search-bar input {
-            width: 320px;
-height: 5px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 1px solid #313;
-        }
-        .content {
-            flex: 1;
-            padding: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #121212;
-        }
-    </style>
+				<meta charset="UTF-8">
+				<title>tiviku</title>
+				<link rel="stylesheet" href="tv.css"></link>
 </head>
 <body>
-    <div class="sidebar">
-<div class="video-container">
-    <div id="player-1" class="jw-video-player">
-<img class="tiviku" src="https://filmovie.github.io/tiviku/gambar/tiviku.png" alt="">
-</div>
-</div>
-
-<div class="vdi1" id="vdi1">
-</div>
-        <div class="search-bar">
-            <input type="text" id="search" placeholder="Cari saluran...">
-        </div>
-        <ul id="channel-list">
-            <!-- Saluran akan dimuat di sini -->
-        </ul>
-    </div>
-    <div class="content">
-        <!-- Content area -->
-    </div>
-    <script>
-// Array of M3U URLs
-const m3uUrls = [ 'https://filmovie.github.io/96/p.m3u8','https://filmovie.github.io/96/new/p2.m3u8','https://filmovie.github.io/new/p3.m3u8','https://filmovie.github.io/96/new/p4.m3u8','https://filmovie.github.io/new/p5.m3u8','https://filmovie.github.io/96/new/p6.m3u8','https://filmovie.github.io/new/p7.m3u8','https://filmovie.github.io/96/new/p8.m3u8','https://filmovie.github.io/new/p9.m3u8','https://filmovie.github.io/96/new/p10.m3u8', ];
-
-// Function to fetch and process M3U files
-function fetchM3UData(url) {
-    fetch(url)
-        .then(response => response.text())
-        .then(data => {
-            const lines = data.split('\n');
-            const channelList = document.getElementById('channel-list');
-            
-            lines.forEach((line, index) => {
-                if (line.startsWith('#EXTINF:')) {
-                    const channelInfo = line.split(',');
-                    const title = channelInfo[1].trim();
-                    const logo = channelInfo[0].match(/tvg-logo="([^"]+)"/)[1];
-                    const streamUrl = lines[index + 1]?.trim(); // Safely access the stream URL
-
-                    if (streamUrl) {
-                        const listItem = document.createElement('li');
-                        listItem.innerHTML = `
-                            <img src="${logo}" alt="${title} Logo">
-                            <a href="#" data-url="${streamUrl}">${title}</a>
-                        `;
-                        channelList.appendChild(listItem);
-                        
-                        listItem.querySelector('a').onclick = (event) => {
-                            
-                            const playerInstance = jwplayer("player-1").setup({
-            file: streamUrl, // Ganti dengan URL video Anda
-            
-            autostart: true // Tidak otomatis play
-        });
-                           document.getElementById("player-1").addEventListener("click", function() {
-            playerInstance.play(true); // Play video saat di klik
-        });
-                        };
-                    }
-                }
-            });
-        })
-        .catch(error => console.error('Error fetching the M3U file:', error));
-}
-
-// Fetch data for each URL in the array
-m3uUrls.forEach(url => fetchM3UData(url));
-
-// Search filter functionality
-const searchInput = document.getElementById('search');
-searchInput.addEventListener('input', () => {
-    const filter = searchInput.value.toLowerCase();
-    const listItems = document.querySelectorAll('#channel-list li');
-
-    listItems.forEach(item => {
-        const title = item.querySelector('a').textContent.toLowerCase();
-        if (title.includes(filter)) {
-            item.style.display = '';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-});
-// Inisialisasi JW Play
-
-        // Event untuk klik pada player
-        
-</script>
+				<!-- player -->
+				<div class="video-container">
+								<video id="player" controls poster="https://filmovie.github.io/tiviku/gambar/tiviku.png"></video>
+								<img id="tiviku" src="https://filmovie.github.io/tiviku/gambar/tiviku.png" alt="">
+				</div>
+				<!--  -->
+				<!-- pencarian -->
+				<div class="search-bar">
+								<input type="text" id="search" placeholder="cari saluran...">
+				</div>
+				<!--  -->
+				<!-- channel list -->
+				<ul id="channel-list">
+								<!-- saluran di muat di sini -->
+				</ul>
+				<!--  -->
+				<script src="tv.js"></script>
 </body>
 </html>
